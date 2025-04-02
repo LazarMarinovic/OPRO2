@@ -4,23 +4,15 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "member")
+@Entity
 public class Member {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
+    private Long id;
     private String firstName;
     private String lastName;
     private String email;
-
-    @ManyToMany
-    @JoinTable(
-            name = "member_equipment",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "equipment_id")
-    )
-    private List<Equipment> reservedEquipment = new ArrayList<>();
 
     // Getters, Setters, Konstruktori
     public Long getId() {
@@ -53,23 +45,5 @@ public class Member {
 
     public void setEmail(String email) {
         this.email = email;
-    }
-
-    public List<Equipment> getReservedEquipment() {
-        return reservedEquipment;
-    }
-
-    public void setReservedEquipment(List<Equipment> reservedEquipment) {
-        this.reservedEquipment = reservedEquipment;
-    }
-
-    public void addEquipment(Equipment equipment) {
-        reservedEquipment.add(equipment);
-        equipment.getMembers().add(this);
-    }
-
-    public void removeEquipment(Equipment equipment) {
-        reservedEquipment.remove(equipment);
-        equipment.getMembers().remove(this);
     }
 }

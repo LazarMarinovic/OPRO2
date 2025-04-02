@@ -3,21 +3,12 @@ package model;
 import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
-@Entity(name = "reservation")
+@Entity
 public class Reservation {
     @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservation_seq")
     private Long id;
-
     private LocalDateTime reservationDate;
-
-    @ManyToOne
-    @JoinColumn(name = "member_id")
-    private Member member;
-
-    @ManyToOne
-    @JoinColumn(name = "equipment_id")
-    private Equipment equipment;
 
     // Getters, Setters, Konstruktori
     public Long getId() {
@@ -36,19 +27,4 @@ public class Reservation {
         this.reservationDate = reservationDate;
     }
 
-    public Member getMember() {
-        return member;
-    }
-
-    public void setMember(Member member) {
-        this.member = member;
-    }
-
-    public Equipment getEquipment() {
-        return equipment;
-    }
-
-    public void setEquipment(Equipment equipment) {
-        this.equipment = equipment;
-    }
 }

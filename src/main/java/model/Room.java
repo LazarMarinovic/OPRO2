@@ -3,20 +3,34 @@ package model;
 import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-@Entity(name = "room")
+@Entity
+@NamedQuery(name = Room.GET_ALL_ROOMS , query = "Select r from Room r")
 public class Room {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
+    public static final String GET_ALL_ROOMS = "Room.getAllRooms";
 
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "room_seq")
+    private Long id;
     private String name;
     private int capacity;
 
-    @OneToMany(mappedBy = "room", cascade = CascadeType.ALL, orphanRemoval = true)
+    @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Equipment> equipmentList = new ArrayList<>();
 
     // Getters, Setters, Konstruktori
+
+
+    public Room() {
+    }
+
+    public Room(Long id, String name, int capacity) {
+        this.id = id;
+        this.name = name;
+        this.capacity = capacity;
+    }
+
     public Long getId() {
         return id;
     }
@@ -57,5 +71,17 @@ public class Room {
     public void removeEquipment(Equipment equipment) {
         equipmentList.remove(equipment);
         equipment.setRoom(null);
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (o == null || getClass() != o.getClass()) return false;
+        Room room = (Room) o;
+        return capacity == room.capacity && Objects.equals(id, room.id) && Objects.equals(name, room.name) && Objects.equals(equipmentList, room.equipmentList);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(id, name, capacity, equipmentList);
     }
 }

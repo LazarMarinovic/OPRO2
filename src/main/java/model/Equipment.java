@@ -4,21 +4,20 @@ import jakarta.persistence.*;
 import java.util.ArrayList;
 import java.util.List;
 
-@Entity(name = "equipment")
+@Entity
+@NamedQuery(name = Equipment.GET_EQUIPMENT_FOR_ROOM, query = "Select e from Equipment e where e.room.id = :id")
 public class Equipment {
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
-    private Long id;
 
+    public static final String GET_EQUIPMENT_FOR_ROOM = "Equipment.getEquipmentForRoom";
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "eq_seq")
+    private Long id;
     private String name;
     private String type;
 
     @ManyToOne
-    @JoinColumn(name = "room_id")
     private Room room;
-
-    @ManyToMany(mappedBy = "reservedEquipment")
-    private List<Member> members = new ArrayList<>();
 
     // Getters, Setters, Konstruktori
     public Long getId() {
@@ -51,13 +50,5 @@ public class Equipment {
 
     public void setRoom(Room room) {
         this.room = room;
-    }
-
-    public List<Member> getMembers() {
-        return members;
-    }
-
-    public void setMembers(List<Member> members) {
-        this.members = members;
     }
 }
