@@ -5,7 +5,6 @@ import jakarta.inject.Inject;
 import jakarta.persistence.EntityManager;
 import jakarta.transaction.Transactional;
 import model.Equipment;
-import model.Member;
 import model.Room;
 
 import java.util.HashSet;

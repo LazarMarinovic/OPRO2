@@ -1,8 +1,6 @@
 package model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NamedQuery(name = Equipment.GET_EQUIPMENT_FOR_ROOM, query = "Select e from Equipment e where e.room.id = :id")

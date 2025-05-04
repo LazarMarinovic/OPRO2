@@ -4,7 +4,12 @@ import jakarta.persistence.*;
 import java.time.LocalDateTime;
 
 @Entity
+@NamedQuery(name = Reservation.GET_ALL_RESERVATIONS, query = "Select r from Reservation r")
+
 public class Reservation {
+
+    public static final String GET_ALL_RESERVATIONS = "Reservation.GetAllReservations";
+
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservation_seq")
     private Long id;

@@ -5,7 +5,11 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Entity
+@NamedQuery(name = Member.GET_ALL_MEMBERS, query = "Select m from Member m")
+
 public class Member {
+
+    public static final String GET_ALL_MEMBERS = "Reservation.GetAllMembers";
 
     @Id
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "member_seq")
@@ -46,4 +50,13 @@ public class Member {
     public void setEmail(String email) {
         this.email = email;
     }
+
+    @ManyToMany
+    @JoinTable(
+            name = "member_reservation",
+            joinColumns = @JoinColumn(name = "member_id"),
+            inverseJoinColumns = @JoinColumn(name = "reservation_id")
+    )
+    private List<Reservation> reservations = new ArrayList<>();
+
 }
