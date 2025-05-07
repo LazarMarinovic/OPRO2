@@ -1,8 +1,6 @@
 package model;
 
 import jakarta.persistence.*;
-import java.util.ArrayList;
-import java.util.List;
 
 @Entity
 @NamedQuery(name = Member.GET_ALL_MEMBERS, query = "Select m from Member m")
@@ -18,7 +16,6 @@ public class Member {
     private String lastName;
     private String email;
 
-    // Getters, Setters, Konstruktori
     public Long getId() {
         return id;
     }
@@ -50,13 +47,5 @@ public class Member {
     public void setEmail(String email) {
         this.email = email;
     }
-
-    @ManyToMany
-    @JoinTable(
-            name = "member_reservation",
-            joinColumns = @JoinColumn(name = "member_id"),
-            inverseJoinColumns = @JoinColumn(name = "reservation_id")
-    )
-    private List<Reservation> reservations = new ArrayList<>();
 
 }

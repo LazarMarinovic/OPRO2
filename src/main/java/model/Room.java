@@ -19,9 +19,6 @@ public class Room {
     @OneToMany(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private List<Equipment> equipmentList = new ArrayList<>();
 
-    // Getters, Setters, Konstruktori
-
-
     public Room() {
     }
 

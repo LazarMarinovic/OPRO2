@@ -1,20 +1,28 @@
 package resource;
 
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import model.Reservation;
-import model.Room;
 import repository.ReservationRepository;
+
+import java.util.List;
 
 @Path("/reservation/")
 public class ReservationResource {
 
     @Inject
     private ReservationRepository reservationRepository;
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getAllReservations")
+    public Response getAllReservations() {
+        List<Reservation> re = reservationRepository.findAll();
+
+        return Response.ok().entity(re).build();
+    }
 
     @POST
     @Consumes(MediaType.APPLICATION_JSON)

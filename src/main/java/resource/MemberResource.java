@@ -2,14 +2,15 @@ package resource;
 
 import exception.MemberException;
 import jakarta.inject.Inject;
-import jakarta.ws.rs.Consumes;
-import jakarta.ws.rs.POST;
-import jakarta.ws.rs.Path;
+import jakarta.ws.rs.*;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
 import model.Member;
 import model.MemberReservation;
+import model.Room;
 import repository.MemberRepository;
+
+import java.util.List;
 
 @Path("/member/")
 public class MemberResource {
@@ -28,6 +29,15 @@ public class MemberResource {
             return Response.ok().entity(e.getMessage()).build();
         }
         return Response.ok().entity(mb).build();
+    }
+
+    @GET
+    @Produces(MediaType.APPLICATION_JSON)
+    @Path("getAllMembers")
+    public Response getAllMembers() {
+        List<Member> m = memberRepository.getMembers();
+
+        return Response.ok().entity(m).build();
     }
 
     @POST

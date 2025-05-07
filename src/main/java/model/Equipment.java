@@ -17,7 +17,6 @@ public class Equipment {
     @ManyToOne
     private Room room;
 
-    // Getters, Setters, Konstruktori
     public Long getId() {
         return id;
     }

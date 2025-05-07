@@ -15,7 +15,6 @@ public class Reservation {
     private Long id;
     private LocalDateTime reservationDate;
 
-    // Getters, Setters, Konstruktori
     public Long getId() {
         return id;
     }
